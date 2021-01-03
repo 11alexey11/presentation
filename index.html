@@ -1,0 +1,225 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Presentation</title>
+
+		<link rel="stylesheet" href="./style.css">
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css" id="theme">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>CSS Grid Layout</h1>
+				</section>
+
+				<section>
+					<h3>Fixed and flexible track sizes</h3>
+					<p>You can create a grid with fixed track sizes – using pixels for example. This sets the grid to the specified pixel which fits to the layout you desire. 
+					You can also create a grid using flexible sizes with percentages or with the new <code>fr</code> unit designed for this purpose.</p>
+				</section>
+
+				<section>
+					<h3>Item placement</h3>
+					<p>You can place items into a precise location on the grid using line numbers, names or by targeting an area of the grid. 
+					Grid also contains an algorithm to control the placement of items not given an explicit position on the grid.</p>
+				</section>
+
+				<section>
+					<h3>Alignment control</h3>
+					<p>Grid contains alignment features so we can control how the items align once placed into a grid area, and how the entire grid is aligned.</p>
+				</section>
+
+				<section>
+					<h3>Control of overlapping content</h3>
+					<p>More than one item can be placed into a grid cell or area and, they can partially overlap each other. 
+					This layering may then be controlled with the <code>z-index</code> property.</p>
+				</section>
+
+				<section>
+					<h3>The Grid container</h3>
+					<p>We create a grid container by declaring display: grid or display: inline-grid on an element. 
+					As soon as we do this, all direct children of that element become grid items.</p>
+					<pre><code data-trim>
+						.wrapper {
+							display: grid;
+						}
+					</code></pre>
+				</section>
+
+				<section>
+					<h3>Example</h3>
+					<div class="wrapper">
+						<div>One</div>
+						<div>Two</div>
+						<div>Three</div>
+						<div>Four</div>
+						<div>Five</div>
+					</div>
+				</section>
+
+				<section>
+					<h3>Grid Tracks</h3>
+					<p>We define rows and columns on our grid with the <code>grid-template-columns</code> and <code>grid-template-rows</code> properties. 
+					These define grid tracks. A grid track is the space between any two lines on the grid. 
+					In the below image you can see a track highlighted – this is the first row track in our grid.</p>
+					<pre><code data-trim>
+						.wrapper {
+							display: grid;
+							grid-template-columns: 200px 200px 200px;
+						}
+					</code></pre>
+				</section>
+
+				<section>
+					<h3>Example</h3>
+					<div class="wrapper wrapper-columns">
+						<div>One</div>
+						<div>Two</div>
+						<div>Three</div>
+						<div>Four</div>
+						<div>Five</div>
+					</div>
+				</section>
+
+				<section>
+					<h3>The fr Unit</h3>
+					<p>Tracks can be defined using any length unit. Grid also introduces an additional length unit to help us create flexible grid tracks. 
+					The new <code>fr</code> unit represents a fraction of the available space in the grid container.</p>
+					<pre><code data-trim>
+						.wrapper {
+							display: grid;
+							grid-template-columns: 500px 1fr 2fr;
+						}
+					</code></pre>
+				</section>
+
+				<section>
+					<h3>Example</h3>
+					<div class="wrapper wrapper-fr">
+						<div>One</div>
+						<div>Two</div>
+						<div>Three</div>
+						<div>Four</div>
+						<div>Five</div>
+					</div>
+				</section>
+
+				<section>
+					<h3>Grid lines</h3>
+					<p>It should be noted that when we define a grid we define the grid tracks, not the lines. Grid then gives us numbered lines to use when positioning items.</p>
+					<img alt="Diagram showing numbered grid lines." src="grid_lines.png" loading="lazy">
+				</section>
+
+				<section>
+					<h3>Positioning items against lines</h3>
+					<pre><code data-trim>
+						.wrapper {
+							display: grid;
+							grid-template-columns: repeat(3, 1fr);
+							grid-auto-rows: 100px;
+						}
+
+						.box1 {
+							grid-column-start: 1;
+							grid-column-end: 4;
+							grid-row-start: 1;
+							grid-row-end: 3;
+						}
+					</code></pre>
+				</section>
+
+				<section>
+					<h3>Example</h3>
+					<div class="wrapper wrapper-position">
+						<div class="box1">One</div>
+						<div>Two</div>
+						<div>Three</div>
+						<div>Four</div>
+						<div>Five</div>
+					</div>
+				</section>
+
+				<section>
+					<h3>Gutters</h3>
+					Gutters or alleys between grid cells can be created using the <code>column-gap</code> and <code>row-gap</code> properties.
+					<pre><code data-trim>
+						.wrapper {
+							display: grid;
+							grid-template-columns: repeat(3, 1fr);
+							column-gap: 10px;
+							row-gap: 1em;
+						}
+					</code></pre>
+				</section>
+
+				<section>
+					<h3>Example</h3>
+					<div class="wrapper wrapper-gap">
+						<div>One</div>
+						<div>Two</div>
+						<div>Three</div>
+						<div>Four</div>
+						<div>Five</div>
+					</div>
+				</section>
+
+				<section>
+					<h3>Nesting grids</h3>
+					A grid item can become a grid container.
+					<img class="nest" alt="Nesting grids" src="nesting_grids.png" loading="lazy">
+				</section>
+				
+
+				<section>
+					<h3>Layering items with z-index</h3>
+					Grid items can occupy the same cell.
+					<div class="wrapper">
+						<div class="box box1-no-z">One</div>
+						<div class="box box2-no-z">Two</div>
+						<div class="box box3-no-z">Three</div>
+						<div class="box box4-no-z">Four</div>
+						<div class="box box5-no-z">Five</div>
+					</div>
+					We can control the order in which items stack up by using the z-index property - just like positioned items.
+					<div class="wrapper">
+						<div class="box box1-z">One</div>
+						<div class="box box2-z">Two</div>
+						<div class="box box3-z">Three</div>
+						<div class="box box4-z">Four</div>
+						<div class="box box5-z">Five</div>
+					</div>
+				</section>
+
+				<section>
+					<h2>Thanks for attention!</h2>
+				</section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
